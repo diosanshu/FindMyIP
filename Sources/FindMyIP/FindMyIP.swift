@@ -5,7 +5,7 @@ import SwiftUI
 @available(iOS 14.0, *)
 public struct FindMyIP: View {
     @StateObject private var viewModel = FindMyIPViewModel()
-
+    public init() {}
     public var body: some View {
         VStack {
             if let content = viewModel.content {
