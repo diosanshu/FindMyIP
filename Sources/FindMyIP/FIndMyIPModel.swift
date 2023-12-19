@@ -7,11 +7,8 @@
 
 import Foundation
 public struct FIndMyIPModel: Codable {
-    let ip: String
-    let network: String
-    let version: String
-    let city: String
-    let region: String
-    let region_code: String
-    let country: String
+    let title: String
+    let body: String
+ 
+   
 }

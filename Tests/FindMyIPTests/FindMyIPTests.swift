@@ -25,7 +25,7 @@ class FindMyIPViewModelTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Data fetched successfully")
 
         // Mock Alamofire request using URLProtocol
-        URLProtocolMock.testURLs = ["https://ipapi.co/json/": Data()] // Provide the desired response data
+        URLProtocolMock.testURLs = ["https://jsonplaceholder.typicode.com/posts/": Data()] // Provide the desired response data
 
         // Start intercepting requests
         URLProtocol.registerClass(URLProtocolMock.self)
@@ -49,7 +49,7 @@ class FindMyIPViewModelTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Data fetching failed")
 
         // Mock Alamofire request using URLProtocol
-        URLProtocolMock.testURLs = ["https://ipapi.co/json/": Data()] // Provide some data to trigger a failure
+        URLProtocolMock.testURLs = ["https://jsonplaceholder.typicode.com/posts/": Data()] // Provide some data to trigger a failure
         URLProtocolMock.shouldFail = true // Simulate a failure
 
         // Start intercepting requests

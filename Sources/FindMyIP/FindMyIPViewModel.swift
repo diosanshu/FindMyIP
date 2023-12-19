@@ -21,7 +21,7 @@ public class FindMyIPViewModel: ObservableObject {
     func fetchData() {
         isLoading = true
 
-        AF.request("https://ipapi.co/json/")
+        AF.request("https://jsonplaceholder.typicode.com/posts")
             .validate()
             .publishDecodable(type: FIndMyIPModel.self)
             .sink(receiveCompletion: { completion in

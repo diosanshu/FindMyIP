@@ -10,9 +10,8 @@ public struct FindMyIP: View {
     public var body: some View {
         VStack {
             if let content = viewModel.content {
-                Text(content.city)
-                Text(content.region)
-                Text(content.network)
+                Text(content.title)
+                Text(content.body)
 
             } else if let errorMessage = viewModel.errorMessage {
                 Text(errorMessage)
