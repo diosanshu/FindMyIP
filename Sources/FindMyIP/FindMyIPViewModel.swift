@@ -29,10 +29,10 @@ public class FindMyIPViewModel: ObservableObject {
                 
                 switch completion {
                 case .finished:
-                    self.showError = true
                     break
                 case .failure(let error):
                     self.errorMessage = error.localizedDescription
+                    self.showError = true
                 }
             }, receiveValue: { response in
                 self.content = response.value

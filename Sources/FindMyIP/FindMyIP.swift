@@ -5,7 +5,6 @@ import SwiftUI
 @available(iOS 14.0, *)
 public struct FindMyIP: View {
     @StateObject private var viewModel = FindMyIPViewModel()
-//    @ObservedObject var viewModel = FindMyIPViewModel()
 
     public init() {}
     public var body: some View {
