@@ -5,6 +5,8 @@ import SwiftUI
 @available(iOS 14.0, *)
 public struct FindMyIP: View {
     @StateObject private var viewModel = FindMyIPViewModel()
+//    @ObservedObject var viewModel = FindMyIPViewModel()
+
     public init() {}
     public var body: some View {
         VStack {
@@ -23,5 +25,12 @@ public struct FindMyIP: View {
             }
         }
         .padding()
+        .alert(isPresented: $viewModel.showError) {
+                   Alert(
+                       title: Text("Error"),
+                       message: Text(viewModel.errorMessage ?? "Unknown error"),
+                       dismissButton: .default(Text("OK"))
+                   )
+               }
     }
 }

@@ -14,6 +14,7 @@ public class FindMyIPViewModel: ObservableObject {
     @Published var content: FIndMyIPModel?
     @Published var errorMessage: String?
     @Published var isLoading = false
+    @Published var showError = false
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -25,8 +26,10 @@ public class FindMyIPViewModel: ObservableObject {
             .publishDecodable(type: FIndMyIPModel.self)
             .sink(receiveCompletion: { completion in
                 self.isLoading = false
+                
                 switch completion {
                 case .finished:
+                    self.showError = true
                     break
                 case .failure(let error):
                     self.errorMessage = error.localizedDescription
