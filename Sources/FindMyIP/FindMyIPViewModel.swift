@@ -15,13 +15,31 @@ public class FindMyIPViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var isLoading = false
     @Published var showError = false
-
+    
     private var cancellables = Set<AnyCancellable>()
-
+    
     func fetchData() {
         isLoading = true
-
-        AF.request("https://jsonplaceholder.typicode.com/posts")
+        
+        // Load your certificate
+        guard let certificatePath = Bundle.main.path(forResource: "github.com", ofType: "cer"),
+              let certificateData = try? Data(contentsOf: URL(fileURLWithPath: certificatePath)),
+              let certificate = SecCertificateCreateWithData(nil, certificateData as CFData)
+        else {
+            self.errorMessage = "Error loading certificate"
+            self.showError = true
+            return
+        }
+        
+        // Configure ServerTrustManager with SSL pinning
+        let serverTrustManager = ServerTrustManager(evaluators: [
+            "jsonplaceholder.typicode.com": PinnedCertificatesTrustEvaluator(certificates: [certificate])
+        ])
+        
+        // Configure Session with ServerTrustManager
+        let session = Session(serverTrustManager: serverTrustManager)
+        
+        session.request("https://jsonplaceholder.typicode.com/posts")
             .validate()
             .publishDecodable(type: FIndMyIPModel.self)
             .sink(receiveCompletion: { completion in
@@ -39,4 +57,6 @@ public class FindMyIPViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
+    
+    
 }
